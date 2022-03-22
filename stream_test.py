@@ -56,7 +56,7 @@ if uploaded_file is not None:
     img_byte_arr = io.BytesIO()
     background.save(img_byte_arr, format='jpeg')
     
-    zipList.append([img_byte_arr,'background3.jpeg'])
+    zipList.append([img_byte_arr,'background4.jpeg'])
     
     # writing files to a zipfile
     with ZipFile(zip_buffer, 'w') as zip_file:
