@@ -24,7 +24,7 @@ if uploaded_file is not None:
     
     # Background 2 - Boxes
     foreground = ImageOps.contain(img,(1800,1800))
-    background = Image.open('Images\Background2.jpg', 'r')
+    background = Image.open('Images/Background2.jpg', 'r')
     
     background = addShadow(foreground,background,x_offset=300,y_offset=0,x_blur_offset=3,y_blur_offset=-3)
     
@@ -35,7 +35,7 @@ if uploaded_file is not None:
     
     # Background 3 - Kitchen
     foreground = ImageOps.contain(img,(2195,915))
-    background = Image.open('Images\Background3.jpg', 'r')
+    background = Image.open('Images/Background3.jpg', 'r')
     
     background = addShadow(foreground,background,x_offset=-180,y_offset=-500,x_blur_offset=3,y_blur_offset=-3,lighten_amount=50,blur_amount=8,alpha_reduction=3)
     
@@ -46,8 +46,8 @@ if uploaded_file is not None:
     
     # Background 4 - Cactus
     foreground = ImageOps.contain(img,(2597,1186))
-    background = Image.open('Images\Background4a.jpg', 'r')
-    front = Image.open('Images\Background4b.png', 'r')
+    background = Image.open('Images/Background4a.jpg', 'r')
+    front = Image.open('Images/Background4b.png', 'r')
     
     background = addShadow(foreground,background,x_offset=0,y_offset=-300,x_blur_offset=-3,y_blur_offset=1,lighten_amount=50,blur_amount=8,alpha_reduction=2.5)
     
