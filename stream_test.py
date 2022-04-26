@@ -88,6 +88,48 @@ if uploaded_file is not None:
     
     zipList.append([img_byte_arr,'background5.jpeg'])
     
+    # Background 6 - Bag
+    foreground = ImageOps.contain(img,(968,671))
+    background = Image.open('Images/Background6a.jpg', 'r')
+    front = Image.open('Images/Background6b.png', 'r')
+    
+    background = addShadow(foreground,background,x_offset=50,y_offset=200,x_blur_offset=0,y_blur_offset=0,lighten_amount=40,blur_amount=1.5,alpha_reduction=50)
+    
+    background.paste(front, (0,0), front)
+    
+    img_byte_arr = io.BytesIO()
+    background.save(img_byte_arr, format='jpeg')
+    
+    zipList.append([img_byte_arr,'background6.jpeg'])
+    
+    # Background 7 - Shirt
+    foreground = ImageOps.contain(img,(1005,481))
+    background = Image.open('Images/Background7a.jpg', 'r')
+    front = Image.open('Images/Background7b.png', 'r')
+    
+    background = addShadow(foreground,background,x_offset=25,y_offset=-200,x_blur_offset=0,y_blur_offset=0,lighten_amount=20,blur_amount=0,alpha_reduction=1)
+    
+    background.paste(front, (0,0), front)
+    
+    img_byte_arr = io.BytesIO()
+    background.save(img_byte_arr, format='jpeg')
+    
+    zipList.append([img_byte_arr,'background7.jpeg'])
+    
+    # Background 8 - Car
+    foreground = ImageOps.contain(img,(1392,408))
+    background = Image.open('Images/Background8.jpg', 'r')
+    # front = Image.open('Images/Background7b.png', 'r')
+    
+    background = addShadow(foreground,background,x_offset=-210,y_offset=-525,x_blur_offset=1,y_blur_offset=1,lighten_amount=10,blur_amount=1,alpha_reduction=1)
+    
+    # background.paste(front, (0,0), front)
+    
+    img_byte_arr = io.BytesIO()
+    background.save(img_byte_arr, format='jpeg')
+    
+    zipList.append([img_byte_arr,'background8.jpeg'])
+    
     # writing files to a zipfile
     with ZipFile(zip_buffer, 'w') as zip_file:
         with tempfile.TemporaryDirectory() as tmp:
