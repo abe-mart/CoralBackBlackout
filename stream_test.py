@@ -31,7 +31,7 @@ if uploaded_file is not None:
     
     background = addShadow(foreground,background,x_offset=0,y_offset=-50,x_blur_offset=0,y_blur_offset=0,lighten_amount=0,blur_amount=0,alpha_reduction=3.5)
     
-    if use_water: background.paste(watermark, (0,0), watermark)
+    if use_water: background.paste(watermark, (0,331), watermark)
     
     font = ImageFont.truetype(font='Fonts/Bebas.ttf',size=248)
     draw = ImageDraw.Draw(im=background)
