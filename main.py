@@ -33,17 +33,27 @@ def createBlur(image,alpha_reduction=2.5,blur_amount=7):
     
     return blurred
 
-def addShadow(foreground,background,x_offset=300,y_offset=0,x_blur_offset=3,y_blur_offset=-3,alpha_reduction=2.5,blur_amount=7,lighten_amount=75):
+def addShadow(foreground,blackout,background,x_offset=300,y_offset=0,x_blur_offset=3,y_blur_offset=-3,alpha_reduction=2.5,blur_amount=7,lighten_amount=75):
 
     blurred = createBlur(foreground,alpha_reduction,blur_amount)
+    
+    blackout_blurred = createBlur(blackout,alpha_reduction,blur_amount)
 
     foreground = lightenImage(foreground,lighten_amount)
+    
+    # blackout = lightenImage(blackout,100)
+    color_overlay = Image.new('RGBA', blackout.size, color=(131, 115, 100, 255))
+    blackout = Image.alpha_composite(blackout, color_overlay)
     
     bg_w, bg_h = background.size
     img_w, img_h = foreground.size
 
     offset = ((bg_w - img_w) // 2 + x_offset, (bg_h - img_h) // 2 + y_offset)
     offset_blur = ((bg_w - img_w) // 2 + x_offset + x_blur_offset, (bg_h - img_h) // 2 + y_offset + y_blur_offset)
+    blackout_offset = ((bg_w - img_w) // 2 + x_offset, (bg_h - img_h) // 2 + y_offset)
+    blackout_offset_blur = ((bg_w - img_w) // 2 + x_offset + x_blur_offset, (bg_h - img_h) // 2 + y_offset + y_blur_offset)
+    background.paste(blackout_blurred, blackout_offset_blur, blackout_blurred)
+    background.paste(blackout, blackout_offset, blackout)
     background.paste(blurred, offset_blur, blurred)
     background.paste(foreground, offset, foreground)
     
