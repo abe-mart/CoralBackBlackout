@@ -33,7 +33,7 @@ def createBlur(image,alpha_reduction=2.5,blur_amount=7):
     
     return blurred
 
-def addShadow(foreground,blackout,background,x_offset=300,y_offset=0,x_blur_offset=3,y_blur_offset=-3,alpha_reduction=2.5,blur_amount=7,lighten_amount=75):
+def addShadow(foreground,blackout,background,x_offset=300,y_offset=0,x_blur_offset=3,y_blur_offset=-3,alpha_reduction=2.5,blur_amount=7,lighten_amount=75,x_offset_b=0,y_offset_b=0):
 
     blurred = createBlur(foreground,alpha_reduction,blur_amount)
     
@@ -51,8 +51,8 @@ def addShadow(foreground,blackout,background,x_offset=300,y_offset=0,x_blur_offs
 
     offset = ((bg_w - img_w) // 2 + x_offset, (bg_h - img_h) // 2 + y_offset)
     offset_blur = ((bg_w - img_w) // 2 + x_offset + x_blur_offset, (bg_h - img_h) // 2 + y_offset + y_blur_offset)
-    blackout_offset = ((bg_w - img_w) // 2 + x_offset, (bg_h - img_h) // 2 + y_offset)
-    blackout_offset_blur = ((bg_w - img_w) // 2 + x_offset + x_blur_offset, (bg_h - img_h) // 2 + y_offset + y_blur_offset)
+    blackout_offset = (int((bg_w - img_w) // 2 + x_offset + x_offset_b), int((bg_h - img_h) // 2 + y_offset + y_offset_b))
+    blackout_offset_blur = (int((bg_w - img_w) // 2 + x_offset + x_blur_offset + x_offset_b), int((bg_h - img_h) // 2 + y_offset + y_blur_offset + y_offset_b))
     background.paste(blackout_blurred, blackout_offset_blur, blackout_blurred)
     background.paste(blackout, blackout_offset, blackout)
     background.paste(blurred, offset_blur, blurred)

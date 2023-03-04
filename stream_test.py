@@ -17,8 +17,15 @@ if uploaded_file is not None:
     img = Image.open(uploaded_file)
     img2 = Image.open(uploaded_file_2)
     filename_up = uploaded_file.name.split('.')[0]
-    st.image(img, caption='Uploaded Image.', use_column_width=True)
-    st.image(img2, caption='Uploaded Image.', use_column_width=True)
+    # st.image(img, caption='Uploaded Image.', use_column_width=True)
+    # st.image(img2, caption='Uploaded Image.', use_column_width=True)
+    c = st.columns(2)
+    with c[0]:
+        x_scale_b = st.number_input('X Scale',1.0,format='%f')
+        y_scale_b = st.number_input('Y Scale',1.0,format='%f')
+    with c[1]:
+        x_offset_b = st.number_input('X Offset')
+        y_offset_b = st.number_input('Y Offset')
     st.write("")
     st.write("Putting Background...")
     
@@ -28,13 +35,13 @@ if uploaded_file is not None:
     
     # Background 1 - Board
     foreground = ImageOps.contain(img,(2580,1186))
-    blackout = ImageOps.contain(img2,(2580,1186))
+    blackout = ImageOps.contain(img2,(int(2580*x_scale_b),int(1186*y_scale_b)))
     background = Image.open('Images/Background1.jpg', 'r')
     watermark = Image.open('Images/Watermark_short.png','r')
     badge = Image.open('Images/badge.png','r')
     bg_w, bg_h = background.size
     
-    background = addShadow(foreground,blackout,background,x_offset=0,y_offset=-50,x_blur_offset=0,y_blur_offset=3,lighten_amount=0,blur_amount=8,alpha_reduction=3.5)
+    background = addShadow(foreground,blackout,background,x_offset=0,y_offset=-50,x_blur_offset=0,y_blur_offset=3,lighten_amount=0,blur_amount=8,alpha_reduction=3.5,x_offset_b=x_offset_b,y_offset_b=y_offset_b)
     
     if use_water: background.paste(watermark, (0,331), watermark)
     
@@ -49,6 +56,8 @@ if uploaded_file is not None:
     background.save(img_byte_arr, format='jpeg')
     
     zipList.append([img_byte_arr,'background1.jpeg'])
+    
+    st.image(background, caption='Aligned image', use_column_width=True)
     
     # Background 1B - Two layers
     foreground = ImageOps.contain(img,(2580//2,1186//2))
